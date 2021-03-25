@@ -759,7 +759,11 @@ import {default as m1} from "./src/js/m1.js";
 import m1 from "./src/js/m1.js";
 ```
 
-
+> 使用时，要在script标签中添加 type='module'
+>
+> ```javascript
+> <script type="module"></script>
+> ```
 
 ## ES7
 
@@ -964,5 +968,233 @@ while(result = reg.exec(str)){
 }
 //输出结果
 console.log(data);
+```
+
+
+
+## ES10
+
+### Object.fromEntries
+
+1. 将二维数组转为map（里层的第一个元素为key，第二个元素为value，除此之外忽略其它元素）
+
+   ```javascript
+   const result = Object.fromEntries([
+       ['name', '尚硅谷'],
+       ['xueke', 'java,大数据,前端,云计算'],
+   ])
+   console.log(result);//{name: "尚硅谷", xueke: "java,大数据,前端,云计算"}
+   ```
+
+2. 将map集合转为对象
+
+   ```javascript
+   const m = new Map();
+   m.set('name', 'FS')
+   const result = Object.fromEntries(m);
+   console.log(m); // Map对象
+   console.log(result);//{name:'fs'}
+   ```
+
+3. 将对象转为二维数组
+
+   ```javascript
+   const arr = Object.entries({
+       name:'尚硅谷'
+   })
+   console.log(arr);
+   ```
+
+### trimStart 和 trimEnd
+
++ trimStart 去掉左边的空格
++ trimEnd 去掉右边的空格
+
+### Array.prototype.flat 与 flatMap
+
+扁平化数组，将多维数组转换为低维数组
+
+#### flat
+
+1. 二维转一维
+
+   ```javascript
+   const arr = [1,2,3,4,[5,6]];
+   console.log(arr.flat()); //[1,2,3,4,5,6]
+   ```
+
+2. 三维转一维
+
+   ```javascript
+   const arr = [1,2,3,4,[5,6,[7,8]]];
+   // flat 参数为深度 是一个数字，默认值为1
+   console.log(arr.flat(2)); // [1,2,3,4,5,6,7,8] 
+   ```
+
+#### flatMap
+
+没看出区别来
+
+```javascript
+const arr = [1, 2, 3, 4];
+// const result = arr.map(item => item * 10);
+const result = arr.flatMap(item => item * 10);
+console.log(result);
+```
+
+### Symbol.prototype.description
+
+获取创建Symbol时的标识名称
+
+```javascript
+let s = Symbol('尚硅谷');
+console.log(s.description); // 尚硅谷
+```
+
+
+
+## ES11
+
+### String.prototype.matchAll  
+
+例：
+
+```javascript
+let str = `
+<ul>
+<li>
+<a>肖生克的救赎</a>
+<p>上映日期：1994-09-10</p>
+</li>
+<li>
+<a>阿甘正传</a>
+<p>上映日期：1994-07-06</p>
+</li>
+</ul>
+`
+// 声明正则
+let reg = /<li>.*?<a>(.*?)<\/a>.*?<p>(.*?)<\/p>/sg
+
+// 调用方法
+const result = str.matchAll(reg);
+console.log(result);
+
+// for (let v of result) {
+//     console.log(v);
+// }
+
+const arr = [...result];
+console.log(arr);
+```
+
+
+
+### 类的私有属性
+
+类的私有属性使用`#`符号，被`#`修饰的成员只能在类中使用，在外部使用类的实例对象访问也会出错。
+
+```javascript
+class Person {
+    // 公有属性
+    name;
+    // 私有属性
+    #age;
+    #weight;
+    // 构造方法
+    constructor(name, age, weight){
+        this.name = name;
+        this.#age = age;
+        this.#weight = weight;
+    }
+intro () {
+    console.log(this.#weight);
+                console.log(this.#age);
+
+                }
+}
+// 实例化
+const girl = new Person('小红', 18, '45kg');
+console.log(girl);
+console.log(girl.name);
+girl.intro()
+//  Private field '#age' must be declared in an enclosing class
+// console.log(girl.#age);
+// console.log(girl.#weight);
+```
+
+### Promise.allSettled
+
+```javascript
+// 声明两个Promise对象
+const p1 = new Promise((resolve, reject) => {
+    setTimeout(()=>{
+        resolve('商品数量 - 1')
+    }, 1000)
+})
+
+const p2 = new Promise((resolve, reject) => {
+    setTimeout(()=>{
+        // resolve('商品数量 - 2')
+        reject('出错了');
+    }, 1000)
+})
+```
+
+#### allSettled
+
+调用 allSettled 方法，不管p1,p2成功与否都返回成功
+
+```javascript
+const result = Promise.allSettled([p1,p2]);
+console.log(result);
+```
+
+#### all
+
+all 方法，在都成功时才返回成功，在其中一个返回失败时，整体返回失败。
+
+```javascript
+const result = Promise.all([p1,p2])
+console.log(result);
+```
+
+### 可选链操作符（`?.`）
+
+```javascript
+function main (config) {
+    // 原来为了判断参数是否有确定的属性，需要逐层判断
+    // const dbHost = config && config.db && config.db.host;
+    // 现在直接使用可选链操作符`?.` 不会报错，顶多undefined
+    const dbHost = config?.db?.host;
+    console.log(dbHost);
+}
+main({
+    db:{
+        host:'127.0.0.1',
+        username:'root'
+    },
+    catch:{
+        host:'localhost',
+        username:'root'
+    }
+})
+```
+
+### 动态 import 导入
+
+使用import then，此时then方法返回的是模块对象
+
+```javascript
+import('./05.hello.js').then(module => {
+    module.hello();
+});
+```
+
+### globalThis 对象  
+
+获取当前作用域顶级的this，不论环境是window还是node。都是它们的顶级this
+
+```javascript
+console.log(globalThis);//window
 ```
 
