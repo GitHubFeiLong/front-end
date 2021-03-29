@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+    <meta charset="UTF-8">
+    <title>dome</title>
+    <style>
+        
+        #brow{
+            width:200px;
+            height:200px;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+            border: 1px solid;
+            background-color:red;
+            transition-property: background-color,width;
+            transition-duration: 5s;
+            transition-timing-function:steps(5, 50%);
+            transition-delay: 1s;
+        }
+        #brow:hover{
+            width:800px;
+           background-color:pink; 
+        }
+    </style>
+</head>
+
+<body>
+    <div id="brow"></div>
+</body>
+<script>
+
+</script>
+</html>
