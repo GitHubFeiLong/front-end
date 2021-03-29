@@ -1,5 +1,13 @@
 # CSS 选择器
 
+> 其它小知识点：
+>
+> CSS 全称：Cascading style sheets
+>
+> 样式表的组成：规则  --->  选择器+声明块 ---> 声明 ---> CSS合法的属性名+属性值
+>
+> 浏览器渲染样式表的顺序:从右往左
+
 ## 基本选择器
 
 例如：
@@ -77,7 +85,7 @@ div,input{
 ul > li{}
 ```
 
-> 使用>来选择。它不同于后代选择器，子元素选择器只是用来选择直接后代
+> 也可称为直接后代选择器,此类选择器只能匹配到直接后代，不能匹配到深层次的后代元素
 
 #### 相邻兄弟选择器
 
@@ -86,7 +94,7 @@ ul > li{}
 #li + li {}
 ```
 
-> 使用+来选择。只匹配紧跟着的同胞元素
+> 使用+来选择，它只会匹配紧跟着的兄弟元素
 >
 
 #### 通用兄弟选择器
@@ -98,6 +106,14 @@ ul > li{}
 
 > 使用~来选择。匹配后面的同胞元素（不需要紧跟）
 >
+
+#### 选择器分组
+
+```css
+h1,h2,h3{color: pink;} 
+```
+
+> 此处的逗号我们称之为结合符
 
 ## 属性选择器
 
@@ -117,7 +133,7 @@ ul > li{}
 
 ### 子串值属性选择器
 
-1. [attr|=val] : 选择attr属性的值以val（包括val）或val-开头的元素
+1. [attr|=val] : 选择attr属性的值以val（包括val）或`val-`开头的元素
 
 2. [attr^=val] : 选择attr属性的值以val开头（包括val）的元素。
 3. [attr$=val] : 选择attr属性的值以val结尾（包括val）的元素。
@@ -126,6 +142,8 @@ ul > li{}
 ## 伪类与伪元素选择器
 
 ### 链接伪类
+
+> 注意 `:link，:visited，:target`是作用于链接元素的！
 
 #### 锚点伪类
 
@@ -141,15 +159,28 @@ ul > li{}
 ### 动态伪类
 
 1. hover：悬浮到目标元素上(`a:hover`)
-2. active：点击下去(`a:active`)
+2. active：表示匹配被用户激活的元素（点击按住时）(`a:active`)
+
+> 由于a标签的:link和:visited可以覆盖了所有a标签的状态，所以当:link，:visited，:hover，:active同时出现在a标签身上时 :link和:visited不能放在最后！！！
+>
+> 只有下列的属性才能被应用到已访问链接(:visited选择器)：
+>
+> color
+> background-color
+> border-color
 
 ### 表单相关伪类
 
-1. enabled：激活状态（`input:enabled`）
-2. disabled：禁用状态（`input:disabled`）
-3. checked：选中状态(`input:checked`)
+1. enabled：匹配可编辑的表单（`input:enabled`）
+2. disabled：匹配被禁用的表单（`input:disabled`）
+3. checked：匹配被选中的表单(`input:checked`)
+4. focus：匹配获焦的表单
 
 ### 结构性伪类（`:xxx`）
+
+> index的值从1开始计数！！！！
+> index可以为变量n(只能是n)
+> index可以为even odd
 
 + nth-child(n)
 
@@ -312,7 +343,7 @@ div[id="test"]（0,0,1,1） 和 #test（0,1,0,0）
 ## 继承
 
 ​		继承没有特殊性，甚至连0特殊性都没有
-0特殊性要比无特殊性来的强
+​		0特殊性要比无特殊性来的强
 
 ## 来源
 

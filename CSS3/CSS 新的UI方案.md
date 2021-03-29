@@ -4,11 +4,19 @@
 
 ### opacity
 
+```css
+opacity:0.5;
+```
+
 opacity属性指定了一个元素的透明度
 
 默认值：1.0    不可继承
 
 ### rgba
+
+```css
+background-color:rgba(0,0,0,.5)
+```
 
 指定透明度
 
@@ -24,17 +32,19 @@ text-shadow: red 10px 10px 2px, pink 20px 20px 2px;
 
 默认值：none        不可继承 
 
-值
-    `<color>`
-       可选。可以在偏移量之前或之后指定。如果没有指定颜色，则使用UA（用户代理）选择的颜色。
-    `<offset-x> <offset-y>`
-       必选。这些长度值指定阴影相对文字的偏移量。
-      ` <offset-x>` 指定水平偏移量，若是负值则阴影位于文字左边。        
-       `<offset-y>` 指定垂直偏移量，若是负值则阴影位于文字上面。
-       如果两者均为0，则阴影位于文字正后方(如果设置了`<blur-radius>` 则会产生模糊效果)。
-    `<blur-radius>`
-       可选。这是 `<length>` 值。如果没有指定，则默认为0。
-       值越大，模糊半径越大，阴影也就越大越淡
+值:
+
+1. color:  可选。可以在偏移量之前或之后指定。如果没有指定颜色，则使用UA（用户代理）选择的颜色。
+
+2. offset-x offset-y: 必选。这些长度值指定阴影相对文字的偏移量。
+
+   > offset-x: 指定水平偏移量，若是负值则阴影位于文字左边。
+   > offset-y: 指定垂直偏移量，若是负值则阴影位于文字上面。
+   >
+   > 如果两者均为0，则阴影位于文字正后方(如果设置了`blur-radius` 则会产生模糊效果)。
+   >    
+
+3. blur-radius：可选。这是 `length` 值。如果没有指定，则默认为0。值越大，模糊半径越大，阴影也就越大越淡
 
 > 模糊背景
 >
@@ -52,12 +62,12 @@ text-shadow: red 10px 10px 2px, pink 20px 20px 2px;
 
 ### 文字排版
 
-```css
-direction:rtl;
-unicode-bidi:bidi-override;
-```
-
 + direction:控制文字的方向,一定要配合`unicode-bidi:bidi-override`;来使用
+
+  ```css
+  direction:rtl;
+  unicode-bidi:bidi-override;
+  ```
 
 + text-overflow :确定如何向用户发出未显示的溢出内容信号。它可以被剪切，显示一个省略号（'...'）
 
@@ -79,29 +89,32 @@ box-shadow: <inset> 10px 10px 5px, <rgba> 20px 20px 7px;
 
 > 第一个参数可以设置阴影往元素内显示（inset），也可以设置颜色（rgba）
 
-​    以逗号分割列表来描述一个或多个阴影效果，可以用到几乎任何元素上。 如果元素同时设置了 border-radius ，阴影也会有圆角效果。多个阴影时和多个 text-shadows 规则相同(第一个阴影在最上面)。
+​		以逗号分割列表来描述一个或多个阴影效果，可以用到几乎任何元素上。 如果元素同时设置了 border-radius ，阴影也会有圆角效果。多个阴影时和多个 text-shadows 规则相同(第一个阴影在最上面)。
 
 默认值:  none    不可继承
 
 值：
-    `inset`
-       默认阴影在边框外。
-       使用inset后，阴影在边框内。
-    `<offset-x> <offset-y>`
-       这是头两个 `<length> `值，用来设置阴影偏移量。
-        `<offset-x> `设置水平偏移量，如果是负值则阴影位于元素左边。
-        `<offset-y>` 设置垂直偏移量，如果是负值则阴影位于元素上面。
-       如果两者都是0，那么阴影位于元素后面。
-       这时如果设置了`<blur-radius>` 或`<spread-radius>` 则有模糊效果。
-    `<blur-radius>`
-       这是第三个 `<length>` 值。值越大，模糊面积越大，阴影就越大越淡。 
-       不能为负值。默认为0，此时阴影边缘锐利。
-    `<spread-radius>`
-       这是第四个 `<length>` 值。取正值时，阴影扩大；取负值时，阴影.收缩。默认为0，此时阴影与元素同样大。
-    `<color>`
-       阴影颜色，如果没有指定，则由浏览器决定
+
+1. inset：默认阴影在边框外。使用inset后，阴影在边框内。关键字(内 外阴影)
+
+2. offset-x offset-y：这是头两个 `length `值，用来设置阴影偏移量。
+
+   > offset-x : 设置水平偏移量，如果是负值则阴影位于元素左边。
+   > offset-y: 设置垂直偏移量，如果是负值则阴影位于元素上面。
+   > 如果两者都是0，那么阴影位于元素后面。这时如果设置了`blur-radius` 或`spread-radius` 则有模糊效果。
+
+3. blur-radius：这是第三个 `<length>` 值。值越大，模糊面积越大，阴影就越大越淡。不能为负值。默认为0，此时阴影边缘锐利。
+
+4.  spread-radius：这是第四个 `<length>` 值。取正值时，阴影扩大；取负值时，阴影.收缩。默认为0，此时阴影与元素同样大。
+5. color： 阴影颜色，如果没有指定，则由浏览器决定
 
 ### 倒影
+
+> webkit内核 文字描边 背景镂空
+
+```css
+-webkit-box-reflect:below;
+```
 
 -webkit-box-reflect  设置元素的倒影（准确的来说不能算是css3的东西，但需要大家知道）
 
@@ -120,8 +133,7 @@ box-shadow: <inset> 10px 10px 5px, <rgba> 20px 20px 7px;
 
 第三个值，渐变
 
-1. linear-gradient 线性渐变
-2. radial-gradient 径向渐变
+​	linear-gradient 线性渐变
 
  ```css
 -webkit-box-reflect:left 10px linear-gradient(-90deg,rgba(0,0,0,1) 0,rgba(0,0,0,0) 80%);
@@ -135,7 +147,8 @@ overflow:auto;
 ```
 
 resize CSS 属性允许你控制一个元素的可调整大小性。
-（一定要配合overflow：auto使用）
+
+> 一定要配合overflow：auto使用
 
 默认值：none  不可继承
 
@@ -170,8 +183,6 @@ resize CSS 属性允许你控制一个元素的可调整大小性。
     box-sizing:border-box;
 }
 ```
-
-
 
 box-sizing 属性用于更改用于计算元素宽度和高度的默认的 CSS 盒子模型。可以使用此属性来模拟不正确支持CSS盒子模型规范的浏览器的行/列为。
 
@@ -290,6 +301,8 @@ background-color 会设置元素的背景色
 
 默认值：  transparent    不可继承
 
+> 平铺整个border-box
+
 #### background-image
 
 background-image属性用于为一个元素设置一个或多个背景图像，图像在绘制时，以z轴方向堆叠的方式进行。先指定的图像会在之后指定的图像上面进行绘制。
@@ -297,6 +310,8 @@ background-image属性用于为一个元素设置一个或多个背景图像，�
 注意：background-color会在image之下进行绘制，边框和内容会在image之上进行绘制
 
 默认值：none   不可继承
+
+> 默认从padding-box开始绘制，从border-box开始剪裁，css3中有多背景，默认绘制时尺寸是自己的位图像素
 
 #### background-repeat
 
@@ -409,6 +424,20 @@ background-color: transparent
 
 顺序无关
 
+> 实现图片垂直水平居中
+>
+> ```css
+> body:after{
+>     content: "";
+>     display: inline-block;
+>     height: 100%;
+>     vertical-align: middle;
+> }
+> img{
+>     vertical-align: middle;
+> }
+> ```
+
 ### 渐变
 
 CSS 渐变 是在 CSS3 Image Module 中新增加的图片类型；使用 CSS 渐变可以在两种颜色间制造出平滑的渐变效果. 用它代替图片，可以加快页面的载入时间、减小带宽占用。同时，因为渐变是由浏览器直接生成的，它在页面缩放时的效果比图片更好，因此你可以更加灵活、便捷的调整页面布局。
@@ -416,30 +445,29 @@ CSS 渐变 是在 CSS3 Image Module 中新增加的图片类型；使用 CSS 渐
 
 浏览器支持两种类型的渐变：线性渐变 (linear)，通过 linear-gradient 函数定义，以及 径向渐变 (radial)，通过 radial-gradient 函数定义.
 
-#### 线性渐变
+#### 线性渐变	
 
-线性渐变
-   为了创建一个线性渐变，你需要设置一个起始点和一个方向（指定为一个角度）。你还要定义终止色。终止色就是你想让浏览器去平滑的过渡过去，并且你必须指定至少两种，当然也会可以指定更多的颜色去创建更复杂的渐变效果。
+​		为了创建一个线性渐变，你需要设置一个起始点和一个方向（指定为一个角度）。你还要定义终止色。终止色就是你想让浏览器去平滑的过渡过去，并且你必须指定至少两种，当然也会可以指定更多的颜色去创建更复杂的渐变效果。
 
--默认从上到下发生渐变
+1. 默认从上到下发生渐变
 
  ```css
 linear-gradient(red,blue);
  ```
 
--改变渐变方向(to top|bottom|right|left | top left | top right | bottom left | bottom right)：
+2. 改变渐变方向(to  top|bottom|right|left | top left | top right | bottom left | bottom right)：
 
 ```css
 linear-gradient(to top,red,blue);
 ```
 
--使用角度
+3. 使用角度
 
  ```css
 linear-gradient(45deg,red,blue);
  ```
 
--颜色节点的分布（第一个不写为0%，最后一个不写为100%）
+4. 颜色节点的分布（第一个不写为0%，最后一个不写为100%）
 
 ```css
 linear-gradient(red 长度或者百分比,blue 长度或者百分比);
@@ -447,7 +475,7 @@ linear-gradient(red 长度或者百分比,blue 长度或者百分比);
 
 > 上面的`长度或者百分比` ：第一个表示在指定的长度或百分比之前，全是 纯red色， 第二个表示在指定长度或百分比之后全为纯blue色。 中间有过度色。
 
--重复渐变
+5. 重复渐变
 
 ```css
  repeating-linear-gradient(60deg,red 0,blue 30%);
@@ -465,13 +493,13 @@ linear-gradient(red 长度或者百分比,blue 长度或者百分比);
 
 radial-gradient() 函数创建一个`<image>`，用来展示由原点（渐变中心）辐射开的颜色渐变
 
--默认均匀分布
+1. 默认均匀分布
 
 ```css
 radial-gradient(red,blue);
 ```
 
--不均匀分布
+2. 不均匀分布
 
 ```css
 radial-gradient(red 50%,blue 70%);
@@ -479,7 +507,7 @@ radial-gradient(red 50%,blue 70%);
 
 > 50% 之前是纯色的red，50~70 红-蓝的渐变，70之后是纯蓝
 
--改变渐变的形状
+3. 改变渐变的形状
 
 ```css
 radial-gradient(circle ,red,blue)
@@ -488,19 +516,40 @@ radial-gradient(circle ,red,blue)
    circle
    ellipse（默认为椭圆）
 
--渐变形状的大小
+4. 渐变形状的大小
 
 ```css
  radial-gradient(closest-corner  circle ,red,blue)
 ```
 
-  closest-side   最近边
-   farthest-side  最远边
-   closest-corner 最近角
-   farthest-corner 最远角  （默认值）
+> closest-side   最近边
+> farthest-side  最远边
+> closest-corner 最近角
+> farthest-corner 最远角  （默认值）
 
--改变圆心
+5. 改变圆心
 
 ```css
 radial-gradient(closest-corner  circle at 10px 10px,red,blue); 
 ```
+
+
+
+## 层级
+
+1. 浮动提升半层，只有在浮动的情况下，才需要考虑元素分两层，定位元素提一层，相对定位会在文档流你有残留。
+2. z-index为1怎么都会比a高;z-index为-1怎么都会比a低
+
+## 包含块
+
+初始包含块：和视窗大小位置尺寸一样的矩形，滚动系统滚动条会影响初始包含块的位置。
+
+### 禁止系统滚动条
+
+```css
+html,body{
+    height:100%;
+    overflow:hidden
+}
+```
+
