@@ -11,7 +11,7 @@
 ### transition  
 
    	 众所周知，css效率极高，其变化的过程往往都是在一瞬间完成，速度极快。
-    	CSS transition 提供了一种在更改CSS属性时控制动画速度的方法。 其可以让属性变化成为一个持续一段时间的过程，而不是立即生效的。比如，将一个元素的颜色从白色改为黑色，通常这个改变是立即生效的，使用 CSS transitions 后该元素的颜色将逐渐从白色变为黑色，按照一定的曲线速率变化。这个过程可以自定义
+   		CSS transition 提供了一种在更改CSS属性时控制动画速度的方法。 其可以让属性变化成为一个持续一段时间的过程，而不是立即生效的。比如，将一个元素的颜色从白色改为黑色，通常这个改变是立即生效的，使用 CSS transitions 后该元素的颜色将逐渐从白色变为黑色，按照一定的曲线速率变化。这个过程可以自定义
 
 + 简写属性transition:
   transition是一个简写属性，用于 
@@ -146,12 +146,17 @@ dom.addEventListener("transitionend",function(){
 
 ## 变形
 
-> 顺序是从右往左的，变换的底层其实就是矩阵的运算
+> 顺序是从右往左的，变换的底层其实就是矩阵的运算。
+> 变换组合时,计算方向是从右往左进行继续的。
+>
+> 在元素首次渲染还没有完成的情况下,是不会触发过渡的。
+> 在绝大部分变换样式切换时,如果变换函数的位置 个数不相同也不会触发过渡。
 
 ### 2D变形transform
 
-transform 属性允许你修改CSS视觉格式模型的坐标空间
-transform 属性 , 只对 block 级元素生效！
+​		CSS**`transform`**属性允许你旋转，缩放，倾斜或平移给定元素。这是通过修改CSS视觉格式化模型的坐标空间来实现的
+
+> transform 属性 , 只对 block 级元素生效！
 
 #### 旋转（rotate）
 
@@ -265,6 +270,28 @@ transform-origin: 100px 100px;
 
  transform-origin CSS属性让你更改一个元素变形的基点。
 
+> 基点也可以写关键字：
+>
+> ```css
+> transform-origin: center;
+> transform-origin: top left;
+> transform-origin: 50px 50px;
+> transform-origin: bottom right 60px;
+> ```
+>
+> `transform-origin`属性可以使用一个，两个或三个值来指定，其中每个值都表示一个偏移量。 没有明确定义的偏移将重置为其对应的[初始值](https://developer.mozilla.org/zh-CN/docs/Web/CSS/initial_value)。
+>
+> 如果定义了两个或更多值并且没有值的关键字，或者唯一使用的关键字是`center`，则第一个值表示水平偏移量，第二个值表示垂直偏移量。
+
+- 一个值：
+  - 必须是`length`,`percentage`,或 `left`, `center`, `right`, `top`, `bottom`关键字中的一个。
+- 两个值：
+  - 其中一个必须是`length`,`percentage`,或 `left`, `center`, `right`, `top`, `bottom`关键字中的一个。
+  - 另一个必须是`length`,`percentage`或`top`, `center`, `bottom`关键字中的一个。
+- 三个值：
+  - 前两个值和只有两个值时的用法相同。
+  - 第三个值必须是`length`。它始终代表Z轴偏移量。
+
 #### 矩阵（matrix）
 
 在 2D变换 中，矩阵变换函数 matrix() 接受 6个值，语法形式如下：
@@ -314,6 +341,98 @@ transform-origin: 100px 100px;
 
 ### 3D变形
 
-在浏览器中，X轴是从左到右，Y轴是从上到下，Z轴是从里到外
+在浏览器中，X轴是从左到右，Y轴是从上到下，Z轴是从里到外。
+
+> 需要设置景深，这样对于Z轴的动画才能有效果
 
 ![image-20210329174338400](CSS 过度&变形.assets/image-20210329174338400.png)
+
+#### 3D缩放(scale3d)
+
+```css
+transform: scaleZ(number)
+transform: scale3d(scaleX,scaleY,scaleZ);
+```
+
+​		如果只设置scaleZ(number)，你会发现元素并没有被扩大或压缩，scaleZ(number)需要和translateZ(length)配合使用，number乘以length得到的值，是元素沿Z轴移动的距离，从而使得感觉被扩大或压缩 
+
+#### 3D旋转（rotate3d）
+
+​		CSS3中的3D旋转主要包括四个功能函数:
+
+1. rotateX(angle)、
+
+2.  rotateY(angle)、
+
+3.  rotateZ(angle)、等价于rotate(angle)
+
+4. rotate3d(x,y,z,angle)
+
+   > x, y, z分别接受一个数值(number),用来计算矢量方向(direction vector)，矢量方向是三维空间中的一条线, 从坐标系原点到x, y, z值确定的那个点，元素围绕这条线旋转angle指定的值
+
+> 注意：
+>
+> `rotate3d(x,y,z,angle)`,x > 0 表示元素是延x轴往里旋转（顺时针）；y>0表示元素延y轴右旋转（逆时针）；z>0时，元素延z轴顺时针旋转。某个轴的值越大，元素旋转延该轴就越明显。
+
+#### 3D平移
+
+​		`transform: translateZ(length)`是3D Transformaton特有的，其他两个2D中就有。
+
+```css
+transform:translate3d(translateX,translateY,translateZ);
+```
+
+> translateZ  它不能是百分比 值; 那样的移动是没有意义的。
+>
+> 
+
+#### 景深 perspective
+
+> 景深（英语：Depth of field, DOF）景深是指相机对焦点前后相对清晰的成像范围。在光学中，尤其是录影或是摄影，是一个描述在空间中，可以清楚成像的距离范围。虽然透镜只能够将光聚 到某一固定的距离，远离此点则会逐渐模糊，但是在某一段特定的距离内，影像模糊的程度是肉眼无法察觉的，这段距离称之为景深。当焦点设在超焦距处时，景深 会从超焦距的一半延伸到无限远，对一个固定的光圈值来说，这是最大的景深
+
+  	简单的理解，景深就是我们的肉眼距离显示器的距离，景深越大，元素离我们越远，效果就不好，在我们CSS3中，perspective用于激活一个3D空间，属性值就是景深大小（默认none无景深）
+  		应用景深的元素称为“舞台元素”，舞台元素的所有后代元素都会受影响，（如果后代元素中也添加了perspective属性，效果会叠加而不是覆盖）
+
+```css
+transform: perspective(depth);
+```
+
+​		depth的默认值是none，可以设置为一个长度值，这个长度是沿着Z轴距离坐标原点的距离。1000px被认为是个正常值， 若使用perspective()函数，那么他必须被放置在transform属性的首位，如果放在其他函数之后，则会被忽略
+
+```css
+perspective: depth;
+```
+
+​    同perspective()函数一样，depth的默认值是none，可以设置为一个长度值，这个长度是沿着Z轴距离坐标原点的距离。他们唯一的区别是，perspective属性是被用于元素的后代元素，而不是元素本身；就是说，为某个元素设置perspective属性后，是对这个元素的子元素起作用，而不是这个元素本身。
+
+```css
+perspective-origin
+```
+
+​    同perspective属性，也是设置在父元素上，对后代元素起作用。 这个属性来设置你在X, Y轴坐标确定的那个点来看这个元素，Z轴是被perspective属性设置的 
+
+#### backface-visibility
+
+​		backface-visibility属性用来设置，是否显示元素的背面，默认是显示的。
+
+```css
+backface-visibility: keyword;
+```
+
+keyword有两个值，hidden和visible，默认值是visible。
+
+> 藏元素背面, 一个元素分两面，但并不意味元素有厚度。在一个状态下，元素只能展现自己的一面
+
+#### transform-style
+
+​		这个属性指定了子元素如何在空间中展示，只有两个属性值：
+
+1. flat（默认）
+2. preserve-3d
+
+> flat 表示所有子元素在2D平面呈现，
+> preserve-3d 表示所有子元素在3D平面呈现，
+
+​		如果被扁平化，则子元素不会独立的存在于三维空间。因为该属性不会被（自动）继承，所以必须为元素所有非叶后代节点设置该属性。
+
+> 营造有层级的3d舞台,是一个不可继承属性，他作用于子元素
